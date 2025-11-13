@@ -6,7 +6,7 @@ import type PostDraft from '../../../models/post-draft';
 import SpinnerButton from '../../common/spinner-button/SpinnerButton';
 import Spinner from '../../common/spinner/Spinner';
 import { useAppDispatcher, useAppSelector } from '../../../redux/hooks';
-import { init } from '../../../redux/profile-slice';
+import { init, updatePost } from '../../../redux/profile-slice';
 import useService from '../../../hooks/use-service';
 import ProfileService from '../../../services/auth-aware/ProfileService';
 
@@ -44,7 +44,8 @@ export default function EditPost() {
     async function submit(draft: PostDraft) {
         try {
             setIsSubmitting(true);
-            await profileService.editPost(id!, draft);
+            const updatedPost = await profileService.editPost(id!, draft);
+            dispatch(updatePost(updatedPost));
             navigate('/profile');
         } catch (e) {
             alert(e);
