@@ -49,6 +49,7 @@ const config_1 = __importDefault(require("config"));
 const sequelize_1 = __importDefault(require("./db/sequelize"));
 const enforce_auth_1 = __importDefault(require("./middlewares/enforce-auth"));
 const cors_1 = __importDefault(require("cors"));
+const aws_1 = require("./aws/aws");
 const app = (0, express_1.default)();
 const port = config_1.default.get('app.port');
 const appName = config_1.default.get('app.name');
@@ -68,5 +69,6 @@ app.use(responder_1.default);
 // sequelize.sync()
 // sequelize.sync({ alter: true })
 sequelize_1.default.sync({ force: process.argv[2] === 'sync' });
+(0, aws_1.createAppBucketIfNotExists)();
 console.log(process.argv);
 app.listen(port, () => console.log(`${appName} started on port ${port}`));

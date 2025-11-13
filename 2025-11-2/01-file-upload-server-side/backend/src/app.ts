@@ -11,6 +11,8 @@ import config from 'config'
 import sequelize from './db/sequelize';
 import enforceAuth from './middlewares/enforce-auth';
 import cors from 'cors'
+import { createAppBucketIfNotExists, testUpload } from './aws/aws';
+import fileUpload from 'express-fileupload';
 
 const app = express()
 
@@ -24,6 +26,7 @@ console.log(`app secret is ${secret}`)
 app.use(cors())
 
 app.use(json())
+app.use(fileUpload())
 
 app.use('/auth', authRouter)
 app.use(enforceAuth)
@@ -41,6 +44,10 @@ app.use(responder)
 // sequelize.sync()
 // sequelize.sync({ alter: true })
 sequelize.sync({ force: process.argv[2] === 'sync' })
+
+createAppBucketIfNotExists()
+
+// testUpload()
 
 console.log(process.argv)
 

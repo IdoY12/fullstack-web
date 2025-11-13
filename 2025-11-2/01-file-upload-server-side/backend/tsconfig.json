@@ -100,6 +100,9 @@
         // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
         /* Completeness */
         // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-        "skipLibCheck": true /* Skip type checking all .d.ts files. */
-    }
+        "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+        "baseUrl": "src",   // Makes 'src' the root for module resolution — allows absolute imports like "import from 'aws/aws'" instead of relative paths.
+        "typeRoots": ["src/@types", "node_modules/@types"]  // Adds a custom folder for global type declarations (e.g. AppConfig) while still keeping default npm types.
+    },
+    "include": ["src/**/*"]   // Ensures TypeScript includes every file under 'src' — needed so .d.ts files are recognized by the compiler.
 }

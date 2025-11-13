@@ -19,7 +19,9 @@ export default function NewPost() {
     const profileService = useService(ProfileService);
 
     async function submit(draft: PostDraft) {
+        console.log(draft);
         try {
+            draft.image = (draft.image as unknown as FileList)[0];
             setIsSubmitting(true);
             const post = await profileService.newPost(draft);
             reset();
@@ -56,6 +58,7 @@ export default function NewPost() {
                     }
                 })}></textarea>
                 <div className='formError'>{formState.errors.body?.message}</div>
+                <input type="file" {...register('image')} />
                 <SpinnerButton
                     buttonText='Add Post'
                     loadingText='adding post'

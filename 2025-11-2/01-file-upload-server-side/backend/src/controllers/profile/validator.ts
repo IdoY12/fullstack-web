@@ -10,3 +10,9 @@ export const updatePostValidator = newPostValidator
 export const getPostValidator = Joi.object({
     id: Joi.string().uuid()
 })
+
+export const newPostImageValidator = Joi.object({      // <-- i expected to get obj called 'image' and hes an obj
+    image: Joi.object({
+        mimetype: Joi.string().valid('image/jpeg', 'image/png', 'image/webp')
+    }).unknown(true).optional()
+})
