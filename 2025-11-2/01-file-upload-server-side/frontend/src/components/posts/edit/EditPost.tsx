@@ -87,7 +87,6 @@ export default function EditPost() {
                         loadingText='updating post'
                         isSubmitting={isSubmitting}
                     />
-                    <input></input>
                 </form>
             </>}
 
